@@ -44,7 +44,7 @@ var (
 		},
 	}
 	defaultSensuConfig = SensuConfig{
-		Port:    4567,
+		Port:    456780,
 		Timeout: 10,
 	}
 	defaultConfig = Config{
@@ -188,7 +188,11 @@ func initSensu(apis []SensuConfig) []SensuConfig {
 		}
 
 		// Set the API URL
-		apis[i].URL = fmt.Sprintf("%s://%s:%d%s", prot, api.Host, api.Port, api.Path)
+    if api.Port == 456780 {
+		  apis[i].URL = fmt.Sprintf("%s://%s%s", prot, api.Host, api.Port, api.Path)
+    } else {
+		  apis[i].URL = fmt.Sprintf("%s://%s:%d%s", prot, api.Host, api.Port, api.Path)
+    }
 	}
 	return apis
 }
